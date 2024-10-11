@@ -7,10 +7,19 @@ app.use(cookieParser())
 app.use(express.static("public"))
 app.use(express.json({limit:"20kb"}))
 app.use(express.urlencoded({extended: true}))
-app.use(cors({
-    origin: "*",
-    credentials: true,
-}))
+const allowlist = ['http://localhost:5173', 'https://rerander.vercel.app']
+const corsOptionsDelegate = function (req, callback) {
+    let corsOptions;
+    if (allowlist.indexOf(req.header('Origin')) !== -1) {
+        console.log(">>>>>>>>>>>>>>>>!->",req.header('Origin'));
+        
+      corsOptions = { origin: req.header('Origin'),  } // reflect (enable) the requested origin in the CORS response
+    } else {
+      corsOptions = { origin: false } // disable CORS for this request
+    }
+    callback(null, corsOptions) // callback expects two parameters: error and options
+  }
+app.use(cors(corsOptionsDelegate))
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
