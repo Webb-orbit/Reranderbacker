@@ -11,7 +11,6 @@ const allowlist = ['http://localhost:5173', 'https://rerander.vercel.app']
 const corsOptionsDelegate = function (req, callback) {
     let corsOptions;
     if (allowlist.indexOf(req.header('Origin')) !== -1) {
-        console.log(">>>>>>>>>>>>>>>>!->",req.header('Origin'));
         
       corsOptions = { origin: req.header('Origin'),  } // reflect (enable) the requested origin in the CORS response
     } else {
