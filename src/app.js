@@ -10,11 +10,8 @@ app.use(express.urlencoded({extended: true}))
 const allowlist = ['http://localhost:5173', 'https://rerander.vercel.app']
 const corsOptionsDelegate = function (req, callback) {
     let corsOptions;
-    console.log("================>", req.header('Origin'));
-    
     if (allowlist.indexOf(req.header('Origin')) !== -1) {
-        
-      corsOptions = { origin: req.header('Origin'),  }
+      corsOptions = { origin: true,  }
     } else {
       corsOptions = { origin: false } 
     }
