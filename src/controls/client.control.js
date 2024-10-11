@@ -17,9 +17,10 @@ const GenerateAccessRefreshToken = async (uesrid) => {
         throw new Erres(500, "something wrong generating tokens")
     }
 }
+
 const options = {
+    secure: true,
     httpOnly: true,
-    secure: true
 }
 
 const createclent = Apipromise(async (req, res) => {
@@ -60,6 +61,7 @@ const loginuser = Apipromise(async (req, res) => {
 
     if ([email, password].some(e => e.trim() === "")) {
         throw new Erres(400, "all filds are required")
+
     }
 
     const userexgist = await Client.findOne({email})
