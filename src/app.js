@@ -10,6 +10,8 @@ app.use(express.urlencoded({extended: true}))
 const allowlist = ['http://localhost:5173', 'https://rerander.vercel.app']
 const corsOptionsDelegate = function (req, callback) {
     let corsOptions;
+    console.log("================>", req.header('Origin'));
+    
     if (allowlist.indexOf(req.header('Origin')) !== -1) {
         
       corsOptions = { origin: req.header('Origin'),  }
@@ -26,14 +28,14 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     next();
 });
-import clientrouter from "./router/client.router.js"
-import docsrouter from "./router/docs.router.js"
-import sharerouter from "./router/share.router.js"
-import offlinedoc from "./router/offlinedoc.router.js"
-app.use("/api/v1/client", clientrouter)
-app.use("/api/v1/docs", docsrouter)
-app.use("/api/v1/share", sharerouter)
-app.use("/api/v1/offline", offlinedoc)
+import clientrouter from "./router/client.router.js";
+import docsrouter from "./router/docs.router.js";
+import sharerouter from "./router/share.router.js";
+import offlinedoc from "./router/offlinedoc.router.js";
 
+app.use("/api/v1/client", clientrouter);
+app.use("/api/v1/docs", docsrouter);
+app.use("/api/v1/share", sharerouter);
+app.use("/api/v1/offline", offlinedoc);
 
 export {app}
