@@ -17,6 +17,8 @@ const createdoc = Apipromise(async (req, res) => {
         content: content || "hello backer",
         shared,
         creator: req.client._id
+
+        
     })
 
     if (!newdoc) {
