@@ -10,23 +10,14 @@ app.use(express.urlencoded({extended: true}))
 app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type');
   next();
 });
-const allowlist = ['http://localhost:5173', 'https://rerander.vercel.app']
-const corsOptionsDelegate = function (req, callback) {
-    let corsOptions;
-    const origin = req.header('Origin') || req.header('Referer');
-    console.log("Origin=>", origin);
-    
-    if (allowlist.indexOf(origin) !== -1) {
-      corsOptions = { origin: true,  }
-    } else {
-      corsOptions = { origin: false } 
-    }
-    callback(null, corsOptions) 
-  }
-app.use(cors(corsOptionsDelegate))
+
+app.use(cors({
+  origin: "*",
+  credentials: true,
+}))
 
 
 import clientrouter from "./router/client.router.js";
