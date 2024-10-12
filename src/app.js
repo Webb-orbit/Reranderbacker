@@ -1,20 +1,34 @@
 import cookieParser from "cookie-parser"
 import express from "express"
 import cors from "cors"
+import helmet from "helmet";
 
-const app = express()
-app.use(cookieParser())
-app.use(express.static("public"))
-app.use(express.json({limit:"20kb"}))
-app.use(express.urlencoded({extended: true}))
-app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type');
-  next();
-});
+const app = express();
+app.use(helmet())
+app.use(cookieParser());
+app.use(express.static("public"));
+app.use(express.json({limit:"20kb"}));
+app.use(express.urlencoded({extended: true}));
+const allowedOrigins = ['http://localhost:5173', 'https://rerander.vercel.app'];
 
-app.use(cors())
+const corsOptions = {
+  origin: function (origin, callback) {
+    console.log("origin->>>>>> ",origin);
+    
+    // Allow requests with no origin (like mobile apps or Postman)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not allow access from the specified origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', 
+  credentials: true, 
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 
 
 import clientrouter from "./router/client.router.js";
