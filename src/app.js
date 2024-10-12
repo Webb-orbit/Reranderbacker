@@ -14,10 +14,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use(cors({
-  origin: "*",
-  credentials: true,
-}))
+app.use(cors())
 
 
 import clientrouter from "./router/client.router.js";
