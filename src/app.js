@@ -16,9 +16,10 @@ app.use(function (req, res, next) {
 const allowlist = ['http://localhost:5173', 'https://rerander.vercel.app']
 const corsOptionsDelegate = function (req, callback) {
     let corsOptions;
-    console.log("Origin=>", req.header('Origin'));
+    const origin = req.header('Origin') || req.header('Referer');
+    console.log("Origin=>", origin);
     
-    if (allowlist.indexOf(req.header('Origin')) !== -1) {
+    if (allowlist.indexOf(origin) !== -1) {
       corsOptions = { origin: true,  }
     } else {
       corsOptions = { origin: false } 
