@@ -1,6 +1,6 @@
-import cookieParser from "cookie-parser"
-import express from "express"
-import cors from "cors"
+import cookieParser from "cookie-parser";
+import express from "express";
+import cors from "cors";
 import helmet from "helmet";
 
 const app = express();
@@ -9,7 +9,10 @@ app.use(cookieParser());
 app.use(express.static("public"));
 app.use(express.json({limit:"20kb"}));
 app.use(express.urlencoded({extended: true}));
-app.use(cors());
+app.use(cors({
+    origin: "*",
+    credentials: true,
+}));
 
 
 import clientrouter from "./router/client.router.js";
