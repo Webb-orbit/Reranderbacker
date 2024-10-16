@@ -10,7 +10,7 @@ app.use(express.static("public"));
 app.use(express.json({limit:"20kb"}));
 app.use(express.urlencoded({extended: true}));
 app.use(cors({
-    origin: ["https://rerander.vercel.app", "http://localhost:5173"],
+    origin: ["https://randerers.vercel.app", "http://localhost:5173"],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'User-Agent', 'DNT', 'Cache-Control', 'If-Modified-Since', 'Keep-Alive', 'X-Forwarded-For', 'X-Real-IP', 'X-Frame-Options'],
